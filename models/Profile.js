@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const Post = require("./Post");
 
 const profileSchema = new Schema(
   {
@@ -29,13 +30,13 @@ const profileSchema = new Schema(
     posts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Post",
+        ref: Post,
       },
     ],
     bookMarks: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Post",
+        ref: Post,
       },
     ],
   },
