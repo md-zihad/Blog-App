@@ -1,36 +1,34 @@
-const express = require('express')
-const morgan = require('morgan')
-const mongoose = require('mongoose')
-const router = require('./routes/authRoutes')
+require('dotenv').config();
+const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const router = require("./routes/authRoutes");
 
-const app = express()
+const app = express();
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080;
+const DB_STRING = process.env.DB_STRING;
 
-app.set('view engine', 'ejs')
-app.set('views', 'views')
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 const middlewares = [
-    morgan('dev'),
-    express.static('public'),
-    express.urlencoded({extended: true}),
-    express.json()
-]
+  morgan("dev"),
+  express.static("public"),
+  express.urlencoded({ extended: true }),
+  express.json(),
+];
 
-app.use(middlewares)
+app.use(middlewares);
 
-app.use('/user',router)
+app.use("/user", router);
 
-app.get('/', (req, res) => {
-    res.json(
-        'Hello World'
-    )
-})
+app.get("/", (req, res) => {
+  res.json("Hello World");
+});
 
 mongoose
-  .connect(
-    `mongodb+srv://devzihadse_db_user:euRl6oa8E48UFtVB@clusterx.xbqw8mv.mongodb.net/?appName=ClusterX`
-  )
+  .connect(DB_STRING)
   .then(() => {
     console.log("MongoDB Connected Successfully");
     app.listen(PORT, () => {
