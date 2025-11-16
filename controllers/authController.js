@@ -1,8 +1,16 @@
 const User = require('../models/User')
 
 
-const signupGetController = (req, res, next) => {
-    
+const signupGetController = async (req, res, next) => {
+    try {
+        const user = await User.find().select('email username')
+        if(!user){
+            return res.status(200).json(user)
+        }
+        res.status(200).json(user)
+    } catch (e) {
+        res.status(500)
+    }
 }
 const signupPostController = async (req, res, next) => {
     const {username, email, password} = req.body
