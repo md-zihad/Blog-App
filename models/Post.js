@@ -16,7 +16,7 @@ const postSchema = new Schema(
     },
     author: {
       type: Schema.Types.ObjectId,
-      ref: User,
+      ref: 'User',
       required: true,
     },
     tags: {
@@ -32,19 +32,19 @@ const postSchema = new Schema(
     likes: [
       {
         type: Schema.Types.ObjectId,
-        ref: User,
+        ref: 'User',
       },
     ],
     dislikes: [
       {
         type: Schema.Types.ObjectId,
-        ref: User,
+        ref: 'User',
       },
     ],
     comments: [
       {
         type: Schema.Types.ObjectId,
-        ref: Comment,
+        ref: 'Comment',
       },
     ],
   },

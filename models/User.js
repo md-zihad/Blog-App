@@ -3,10 +3,10 @@ const Profile = require("./Profile");
 
 const userSchema = new Schema(
   {
-    name: {
+    username: {
       type: String,
       trim: true,
-      maxLength: 25,
+      maxLength: 15,
       required: true,
     },
     email: {
@@ -20,7 +20,7 @@ const userSchema = new Schema(
     },
     profile: {
       type: Schema.Types.ObjectId,
-      ref: Profile,
+      ref: 'Profile',
     },
   },
   {

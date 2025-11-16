@@ -1,5 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
+const mongoose = require('mongoose')
+const router = require('./routes/authRoutes')
 
 const app = express()
 
@@ -17,12 +19,24 @@ const middlewares = [
 
 app.use(middlewares)
 
+app.use('/user',router)
+
 app.get('/', (req, res) => {
     res.json(
         'Hello World'
     )
 })
 
-app.listen(PORT, () => {
-    console.log(`Server is runnin on PORT ${PORT}`)
-})
+mongoose
+  .connect(
+    `mongodb+srv://devzihadse_db_user:euRl6oa8E48UFtVB@clusterx.xbqw8mv.mongodb.net/?appName=ClusterX`
+  )
+  .then(() => {
+    console.log("MongoDB Connected Successfully");
+    app.listen(PORT, () => {
+      console.log(`Server is running at PORT ${PORT}`);
+    });
+  })
+  .catch((e) => {
+    console.log(e);
+  });
