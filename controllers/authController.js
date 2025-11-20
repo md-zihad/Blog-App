@@ -1,5 +1,5 @@
 const User = require('../models/User')
-
+const bcrypt = require('bcrypt')
 
 const signupGetController = async (req, res, next) => {
     try {
@@ -15,10 +15,13 @@ const signupGetController = async (req, res, next) => {
 const signupPostController = async (req, res, next) => {
     const {username, email, password} = req.body
     // console.log(req.body)
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+
     const newUser = new User({
         username,
         email,
-        password
+        password: hashedPassword
     })
 
     try {
