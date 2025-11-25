@@ -21,6 +21,16 @@ router.post("/validator",
     ], 
     (req, res, next) => {
         let error = validationResult(req)
+
+        const formatter = (error) => {
+            return error.msg
+        }
+
+        // console.log(error.errors[0])
+        // console.log(error.isEmpty())
+        // console.log(error.array())
+        // console.log(error.mapped())
+        console.log(error.formatWith(formatter).mapped())
         console.log(error)
         res.status(400).json(error)
     });
