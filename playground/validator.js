@@ -27,6 +27,7 @@ router.post("/validator",
         }
 
         // console.log(error.errors[0])
+        // console.log(error.errors[0])
         // console.log(error.isEmpty())
         // console.log(error.array())
         // console.log(error.mapped())
