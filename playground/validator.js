@@ -31,6 +31,7 @@ router.post("/validator",
         // console.log(error.array())
         // console.log(error.mapped())
         console.log(error.formatWith(formatter).mapped())
+        console.log(error)
         res.status(400).json(error)
     });
 
