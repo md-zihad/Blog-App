@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const router = require("./routes/authRoutes");
+const validatorRouter = require('./playground/validator')
 
 const app = express();
 
@@ -22,6 +23,7 @@ const middlewares = [
 app.use(middlewares);
 
 app.use("/user", router);
+app.use("/playground", validatorRouter);
 
 app.get("/", (req, res) => {
   res.json("Hello World");

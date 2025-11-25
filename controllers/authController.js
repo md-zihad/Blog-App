@@ -12,6 +12,8 @@ const signupGetController = async (req, res, next) => {
     res.status(500);
   }
 };
+
+
 const signupPostController = async (req, res, next) => {
   const { username, email, password } = req.body;
   // console.log(req.body)
@@ -29,8 +31,10 @@ const signupPostController = async (req, res, next) => {
     res.status(201).json(createdUser);
   } catch (e) {
     return res.status(404).json("Error Occured");
-  }
+  } 
 };
+
+
 const loginGetController = (req, res, next) => {};
 
 const loginPostController = async (req, res, next) => {
@@ -54,6 +58,8 @@ const loginPostController = async (req, res, next) => {
     res.status(400).json(e);
   }
 };
+
+
 const logoutController = (req, res, next) => {};
 
 module.exports = {
