@@ -16,7 +16,14 @@ router.post("/validator",
         
         check('email')
         .isEmail()
-        .withMessage(`Please provide a valid email`)
+        .withMessage(`Please provide a valid email`),
+
+        check('password').custom( (value) => {
+            if(value.length < 5){
+                throw new Error('Password must be greater than 5 character')
+            }
+            return true
+        })
     
     ], 
     (req, res, next) => {
@@ -32,8 +39,8 @@ router.post("/validator",
         // console.log(error.array())
         // console.log(error.mapped())
         console.log(error.formatWith(formatter).mapped())
-        console.log(error)
-        res.status(400).json(error)
+        // console.log(error)
+        res.status(400).json(error.formatWith(formatter).mapped())
     });
 
 router.get("/validator", (req, res, next) => {});
