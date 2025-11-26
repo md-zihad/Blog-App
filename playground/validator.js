@@ -23,7 +23,14 @@ router.post("/validator",
                 throw new Error('Password must be greater than 5 character')
             }
             return true
-        })
+        }),
+
+        // check(confirmPassword).custom((value, {req}) => {
+        //     if(value !== req.body.password){
+        //         throw new Error('Password does not match')
+        //     }
+        //     return true
+        // })
     
     ], 
     (req, res, next) => {
