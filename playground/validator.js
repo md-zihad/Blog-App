@@ -16,7 +16,8 @@ router.post("/validator",
         
         check('email')
         .isEmail()
-        .withMessage(`Please provide a valid email`),
+        .withMessage(`Please provide a valid email`)
+        .normalizeEmail(),
 
         check('password').custom( (value) => {
             if(value.length < 5){
