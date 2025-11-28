@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const { validationResult } = require("express-validator");
+const errorValidator = require("../utils/errorFormatter");
 
 const signupGetController = async (req, res, next) => {
   try {
@@ -13,10 +15,16 @@ const signupGetController = async (req, res, next) => {
   }
 };
 
-
 const signupPostController = async (req, res, next) => {
+
   const { username, email, password } = req.body;
   // console.log(req.body)
+
+  let errors = validationResult(req).formatWith(errorValidator);
+
+  if (!errors.isEmpty()) {
+    return console.log(errors.mapped());
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -31,9 +39,8 @@ const signupPostController = async (req, res, next) => {
     res.status(201).json(createdUser);
   } catch (e) {
     return res.status(404).json("Error Occured");
-  } 
+  }
 };
-
 
 const loginGetController = (req, res, next) => {};
 
@@ -59,7 +66,6 @@ const loginPostController = async (req, res, next) => {
   }
 };
 
-
 const logoutController = (req, res, next) => {};
 
 module.exports = {
@@ -69,3 +75,10 @@ module.exports = {
   loginPostController,
   logoutController,
 };
+
+
+
+
+
+
+
