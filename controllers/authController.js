@@ -16,7 +16,6 @@ const signupGetController = async (req, res, next) => {
 };
 
 const signupPostController = async (req, res, next) => {
-
   const { username, email, password } = req.body;
   // console.log(req.body)
 
@@ -47,6 +46,12 @@ const loginGetController = (req, res, next) => {};
 const loginPostController = async (req, res, next) => {
   const { email, password } = req.body;
 
+  let errors = validationResult(req).formatWith(errorValidator);
+
+  if (!errors.isEmpty()) {
+    return console.log(errors.mapped());
+  }
+
   try {
     let user = await User.findOne({ email });
 
@@ -75,10 +80,3 @@ module.exports = {
   loginPostController,
   logoutController,
 };
-
-
-
-
-
-
-
