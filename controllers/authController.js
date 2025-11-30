@@ -64,7 +64,9 @@ const loginPostController = async (req, res, next) => {
     if (!match) {
       res.json("Invalid Credentials");
     }
-    res.setHeader('Set-Cookie', 'isLoggedIn=true')
+    // res.setHeader('Set-Cookie', 'isLoggedIn=true')
+    req.session.isloggedIn = true
+    req.session.user = user
     res.status(200).json("Welcome, you're logged in");
 
     //   console.log(user);
