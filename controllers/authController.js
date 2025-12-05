@@ -65,9 +65,15 @@ const loginPostController = async (req, res, next) => {
       res.json("Invalid Credentials");
     }
     // res.setHeader('Set-Cookie', 'isLoggedIn=true')
-    req.session.isLoggedIn = true
-    req.session.user = user
-    res.status(200).json("Welcome, you're logged in");
+    req.session.isLoggedIn = true;
+    req.session.user = user;
+    req.session.save((err) => { 
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+      res.status(200).json("Welcome, you're logged in");
+    });
 
     //   console.log(user);
   } catch (e) {
@@ -75,7 +81,16 @@ const loginPostController = async (req, res, next) => {
   }
 };
 
-const logoutController = (req, res, next) => {};
+const logoutController = (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+
+    return res.status(200).json("You are logged out now");
+  });
+};
 
 module.exports = {
   signupGetController,
