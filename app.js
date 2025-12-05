@@ -6,6 +6,7 @@ const router = require("./routes/authRoutes");
 const validatorRouter = require("./playground/validator");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const bindUserReq = require('./middlewares/authMiddleware')
 
 const app = express();
 
@@ -32,6 +33,7 @@ const middlewares = [
     saveUninitialized: false,
     store: store,
   }),
+  bindUserReq(),
 ];
 
 app.use(middlewares);
