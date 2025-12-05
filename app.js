@@ -4,9 +4,10 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const router = require("./routes/authRoutes");
 const validatorRouter = require("./playground/validator");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const bindUserReq = require('./middlewares/authMiddleware')
+const {bindUserReq} = require('./middlewares/authMiddleware')
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(middlewares);
 
 app.use("/user", router);
 app.use("/playground", validatorRouter);
+app.use("/dashboard", dashboardRoutes);
 
 app.get("/", (req, res) => {
   res.json("Hello World");
