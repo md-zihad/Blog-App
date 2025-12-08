@@ -1,0 +1,4 @@
+{
+    "db_connection_string": "mongodb+srv://devzihadse_db_user:euRl6oa8E48UFtVB@clusterx.xbqw8mv.mongodb.net/?appName=ClusterX",
+    "port": "8080"
+}

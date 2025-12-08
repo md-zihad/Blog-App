@@ -7,9 +7,23 @@ const validatorRouter = require("./playground/validator");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const {bindUserReq} = require('./middlewares/authMiddleware')
+const { bindUserReq } = require('./middlewares/authMiddleware');
+const config = require('config')
 
 const app = express();
+
+// if (app.get('env') === 'development') {
+//   console.log(config.dev.name + ' environemnt')
+// }
+// else if (app.get('env') === 'staging') {
+//   console.log(config.stage.name + ' environemnt')
+// }
+// else if (app.get('env') === 'production') {
+//   console.log(config.prod.name + ' environemnt')
+// }
+
+console.log(config.get('name'))
+// console.log(config.get('email'))
 
 const store = new MongoDBStore({
   uri: process.env.DB_STRING,
