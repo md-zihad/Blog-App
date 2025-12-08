@@ -9,6 +9,7 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const { bindUserReq } = require('./middlewares/authMiddleware');
 const config = require('config')
+const chalk = require('chalk')
 
 const app = express();
 
@@ -22,7 +23,7 @@ const app = express();
 //   console.log(config.prod.name + ' environemnt')
 // }
 
-console.log(config.get('name'))
+console.log(chalk.yellow(config.get('name')))
 // console.log(config.get('email'))
 
 const store = new MongoDBStore({
@@ -64,9 +65,9 @@ app.get("/", (req, res) => {
 mongoose
   .connect(DB_STRING)
   .then(() => {
-    console.log("MongoDB Connected Successfully");
+    console.log(chalk.green("MongoDB Connected Successfully"));
     app.listen(PORT, () => {
-      console.log(`Server is running at PORT ${PORT}`);
+      console.log(chalk.green(`Server is running at PORT ${PORT}`));
     });
   })
   .catch((e) => {
