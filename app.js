@@ -8,23 +8,17 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const { bindUserReq } = require('./middlewares/authMiddleware');
-const config = require('config')
-const chalk = require('chalk')
+const config = require('config');
+const chalk = require('chalk');
+
+
 
 const app = express();
 
-// if (app.get('env') === 'development') {
-//   console.log(config.dev.name + ' environemnt')
-// }
-// else if (app.get('env') === 'staging') {
-//   console.log(config.stage.name + ' environemnt')
-// }
-// else if (app.get('env') === 'production') {
-//   console.log(config.prod.name + ' environemnt')
-// }
 
 console.log(chalk.yellow(config.get('name')))
-// console.log(config.get('email'))
+
+
 
 const store = new MongoDBStore({
   uri: process.env.DB_STRING,
@@ -32,11 +26,15 @@ const store = new MongoDBStore({
   expires: 1000 * 60 * 60 * 2,
 });
 
+
+
 const PORT = process.env.PORT || 8080;
 const DB_STRING = process.env.DB_STRING;
 
+
 app.set("view engine", "ejs");
 app.set("views", "views");
+
 
 const middlewares = [
   morgan("dev"),
@@ -54,9 +52,11 @@ const middlewares = [
 
 app.use(middlewares);
 
+
 app.use("/user", router);
 app.use("/playground", validatorRouter);
 app.use("/dashboard", dashboardRoutes);
+
 
 app.get("/", (req, res) => {
   res.json("Hello World");
